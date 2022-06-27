@@ -1,12 +1,13 @@
 # TODO
 
-- [ ] Add redirection links all pages
 - [ ] Add download links in Abeliophyllum, Ageratum pages
 - [ ] Take comments from viewers
 - [ ] Show comments on guest book page
+- [ ] Add css to the pages
 
 # DONE
 
+- [x] Add home page links to all pages
 - [x] Make Abeliophyllum, Ageratum and a guest book pages
 - [x] Add links in the catalog home page
 - [x] Create html to serve as the home page
