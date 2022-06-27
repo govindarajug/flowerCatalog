@@ -1,6 +1,5 @@
 # TODO
 
-- [ ] Initiate a server which shows some text
 - [ ] Create html to serve as the home page
 - [ ] Add links in the catalog home page
 - [ ] Make Abeliophyllum, Ageratum and a guest book pages
@@ -10,3 +9,5 @@
 - [ ] Show comments on guest book page
 
 # DONE
+
+- [x] Initiate a server which shows some text
