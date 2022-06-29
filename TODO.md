@@ -1,11 +1,13 @@
 # TODO
 
-- [ ] merge comment handler and guestbook handler
-- [ ] move to HTTP module
+- [ ] Separate the app and server
+- [ ] add check for method get
 - [ ] Add css to the pages
 
 # DONE
 
+- [x] move to HTTP module
+- [x] merge comment handler and guestbook handler
 - [x] Show comments on guest book page
 - [x] Take comments from viewers
 - [x] Add download links in Abeliophyllum, Ageratum pages

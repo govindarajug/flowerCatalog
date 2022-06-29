@@ -1,38 +1,25 @@
-const { createServer } = require('net');
-const { commentHandler } = require('./src/commentHandler.js');
+const http = require('http');
 const { guestBookHandler } = require('./src/guestBookHandler.js');
-const { parseRequest } = require('./src/parseRequestLine.js');
-const { Response } = require('./src/response.js');
 const { serveFileContent } = require('./src/serveFileContent.js');
+const { notFoundHandler } = require('./src/notFoundHandler.js');
 
-const handle = (request, response, serveFrom) => {
+const handle = (request, response) => {
   const handlers = [
-    commentHandler,
     guestBookHandler,
-    serveFileContent
+    serveFileContent('./public'),
+    notFoundHandler
   ];
+  request.url = new URL(`http://${request.headers.host}${request.url}`);
   for (const handler of handlers) {
-    if (handler(request, response, serveFrom)) {
+    if (handler(request, response)) {
       return true;
     }
   }
   return false;
 };
 
-const startServer = (port, handle, serveFrom = 'public') => {
-  const server = createServer((socket) => {
-    socket.on('data', (data) => {
-      const request = parseRequest(data.toString());
-      console.log(request.method, request.uri);
-      const response = new Response(socket);
-      handle(request, response, serveFrom);
-    });
-    socket.on('error', (err) => {
-      console.log(err);
-    });
-  });
+const httpServer = http.createServer(handle);
 
-  server.listen(port);
-};
-
-startServer(12345, handle);
+httpServer.listen(9090, () => {
+  console.log('Started listening on 9090');
+});

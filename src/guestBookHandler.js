@@ -1,22 +1,27 @@
 const fs = require("fs");
+const { commentHandler } = require("./commentHandler");
 
 const toHTML = (object, tag) => {
   const values = Object.values(object).join(' ');
   return `<${tag}>${values}</${tag}>`;
 };
 
-const generateGuestBook = (response) => {
-  let comments = JSON.parse(fs.readFileSync('public/guestBook.json', 'utf-8'));
-  const parsedComments = comments.map(x => toHTML(x, 'div'));
-  comments = toHTML(parsedComments, 'div');
-  const pageData = fs.readFileSync('public/template.html', 'utf-8');
-  response.send(pageData.replace('__comments__', comments));
+const generateGuestBook = (request, response) => {
+  const parsedComments = request.comments.map(x => toHTML(x, 'div')).join('\n');
+  const template = fs.readFileSync('public/template.html', 'utf-8');
+  response.end(template.replace('__comments__', parsedComments));
 };
 
 const guestBookHandler = (request, response) => {
-  const { uri } = request;
-  if (uri === '/guestBook') {
-    generateGuestBook(response);
+  const comments = JSON.parse(fs.readFileSync('public/guestBook.json'));
+  if (request.url.pathname === '/guestBook') {
+    request.comments = comments;
+    generateGuestBook(request, response);
+    return true;
+  }
+  if (request.url.pathname === '/comment') {
+    request.comments = comments;
+    commentHandler(request, response);
     return true;
   }
   return false;

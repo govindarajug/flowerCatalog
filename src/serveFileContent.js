@@ -1,22 +1,25 @@
 const fs = require('fs');
 
-const serveFileContent = (request, response, serveFrom) => {
-  const { uri } = request;
-  const fileName = serveFrom + uri;
+const serveFileContent = (serveFrom) => {
+  return (request, response) => {
+    const fileName = serveFrom + request.url.pathname;
 
-  if (uri === '/') {
-    response.setHeader('location', '/homepage.html');
-    response.send('', 302);
+    if (request.url.pathname === '/') {
+      response.setHeader('location', '/homepage.html');
+      response.statusCode = 302;
+      response.end('');
+      return true;
+    }
+    if (!fs.existsSync(fileName)) {
+      return false;
+    }
+    const body = fs.readFileSync(fileName);
+    const ext = fileName.slice(fileName.lastIndexOf('.') + 1);
+    response.setHeader('content-type', `text/${ext}`);
+    response.statusCode = 200;
+    response.end(body);
     return true;
-  }
-  if (!fs.existsSync(fileName)) {
-    return false;
-  }
-  const body = fs.readFileSync(fileName);
-  const ext = fileName.slice(fileName.lastIndexOf('.') + 1);
-  response.setHeader('content-type', `text/${ext}`);
-  response.send(body, 200);
-  return true;
+  };
 };
 
 module.exports = { serveFileContent };
