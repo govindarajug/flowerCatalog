@@ -1,11 +1,13 @@
 # TODO
 
-- [ ] Take comments from viewers
-- [ ] Show comments on guest book page
+- [ ] merge comment handler and guestbook handler
+- [ ] move to HTTP module
 - [ ] Add css to the pages
 
 # DONE
 
+- [x] Show comments on guest book page
+- [x] Take comments from viewers
 - [x] Add download links in Abeliophyllum, Ageratum pages
 - [x] Add home page links to all pages
 - [x] Make Abeliophyllum, Ageratum and a guest book pages

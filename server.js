@@ -1,5 +1,6 @@
 const { createServer } = require('net');
 const { commentHandler } = require('./src/commentHandler.js');
+const { guestBookHandler } = require('./src/guestBookHandler.js');
 const { parseRequest } = require('./src/parseRequestLine.js');
 const { Response } = require('./src/response.js');
 const { serveFileContent } = require('./src/serveFileContent.js');
@@ -7,6 +8,7 @@ const { serveFileContent } = require('./src/serveFileContent.js');
 const handle = (request, response, serveFrom) => {
   const handlers = [
     commentHandler,
+    guestBookHandler,
     serveFileContent
   ];
   for (const handler of handlers) {
@@ -34,4 +36,3 @@ const startServer = (port, handle, serveFrom = 'public') => {
 };
 
 startServer(12345, handle);
-

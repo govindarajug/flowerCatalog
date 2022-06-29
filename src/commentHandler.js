@@ -16,8 +16,9 @@ const commentHandler = (request, response) => {
   let comment = {};
   if (uri === '/comment') {
     comment = request.params;
-    addComment(comment, 'public/comments.json');
-    response.send('Thank you');
+    addComment(comment, 'public/guestBook.json');
+    response.setHeader('Location', '/guestBook');
+    response.send('', 301);
     return true;
   }
   return false;
