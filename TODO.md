@@ -1,11 +1,12 @@
 # TODO
 
-- [ ] Separate the app and server
+- [ ] add jar gif in home page
 - [ ] add check for method get
 - [ ] Add css to the pages
 
 # DONE
 
+- [x] Separate the app and server
 - [x] move to HTTP module
 - [x] merge comment handler and guestbook handler
 - [x] Show comments on guest book page

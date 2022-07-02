@@ -22,7 +22,7 @@ const commentHandler = (request, response) => {
   request.comments.unshift(comment);
   response.setHeader('Location', '/guestBook');
   response.statusCode = 302;
-  response.end('', writeToFile(request.comments, 'public/guestBook.json'));
+  response.end('', writeToFile(request.comments, 'data/guestBook.json'));
   return true;
 };
 

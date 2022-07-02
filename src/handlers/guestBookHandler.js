@@ -8,12 +8,13 @@ const toHTML = (object, tag) => {
 
 const generateGuestBook = (request, response) => {
   const parsedComments = request.comments.map(x => toHTML(x, 'div')).join('\n');
-  const template = fs.readFileSync('public/template.html', 'utf-8');
+  const template = fs.readFileSync('src/template/template.html', 'utf-8');
   response.end(template.replace('__comments__', parsedComments));
 };
 
 const guestBookHandler = (request, response) => {
-  const comments = JSON.parse(fs.readFileSync('public/guestBook.json'));
+  const comments = JSON.parse(fs.readFileSync('data/guestBook.json'));
+
   if (request.url.pathname === '/guestBook') {
     request.comments = comments;
     generateGuestBook(request, response);
