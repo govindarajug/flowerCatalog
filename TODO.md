@@ -1,10 +1,14 @@
 # TODO
 
-- [ ] add check for method get
+- [ ] load guest book without redirection
 - [ ] Add css to the pages
 
 # DONE
 
+- [x] implemented post method for comments
+- [x] logging req path for every request
+- [x] extract handler for parser
+- [x] add check for method get
 - [x] add jar gif in home page
 - [x] Separate the app and server
 - [x] move to HTTP module

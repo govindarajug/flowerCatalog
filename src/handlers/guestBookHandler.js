@@ -12,20 +12,20 @@ const generateGuestBook = (request, response) => {
   response.end(template.replace('__comments__', parsedComments));
 };
 
-const guestBookHandler = (request, response) => {
+const guestBookHandler = (request, response, next) => {
   const comments = JSON.parse(fs.readFileSync('data/guestBook.json'));
 
   if (request.url.pathname === '/guestBook') {
     request.comments = comments;
     generateGuestBook(request, response);
-    return true;
+    return;
   }
   if (request.url.pathname === '/comment') {
     request.comments = comments;
     commentHandler(request, response);
-    return true;
+    return;
   }
-  return false;
+  next();
 };
 
 module.exports = { guestBookHandler };

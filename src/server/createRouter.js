@@ -1,16 +1,19 @@
-const parseUrl = (request, response) => {
-  request.url = new URL(`http://${request.headers.host}${request.url}`);
+const createNext = (handlers) => {
+  let index = -1;
+  const next = (req, res) => {
+    index++;
+    const currentHandler = handlers[index];
+    if (currentHandler) {
+      currentHandler(req, res, () => next(req, res));
+    }
+  };
+  return next;
 };
 
 const createRouter = (handlers) => {
-  return (request, response) => {
-    parseUrl(request, response);
-    for (const handler of handlers) {
-      if (handler(request, response)) {
-        return true;
-      }
-    }
-    return false;
+  return (req, res) => {
+    const next = createNext(handlers);
+    next(req, res);
   };
 };
 

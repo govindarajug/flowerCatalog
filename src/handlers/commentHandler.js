@@ -2,7 +2,7 @@ const fs = require('fs');
 
 const getComment = (request, response) => {
   const comment = {};
-  request.url.searchParams.forEach((value, name) => {
+  request.bodyParams.forEach((value, name) => {
     comment[name] = value;
   });
   comment.date = new Date().toLocaleString();
@@ -23,7 +23,7 @@ const commentHandler = (request, response) => {
   response.setHeader('Location', '/guestBook');
   response.statusCode = 302;
   response.end('', writeToFile(request.comments, 'data/guestBook.json'));
-  return true;
+  return;
 };
 
 module.exports = { commentHandler };
