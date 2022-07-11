@@ -1,10 +1,10 @@
 # TODO
 
-- [ ] load guest book without redirection
 - [ ] Add css to the pages
 
 # DONE
 
+- [x] load guest book without redirection
 - [x] implemented post method for comments
 - [x] logging req path for every request
 - [x] extract handler for parser

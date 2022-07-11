@@ -12,6 +12,7 @@ const serveFileContent = (serveFrom) => {
     }
     if (!fs.existsSync(fileName)) {
       next();
+      return;
     }
     const body = fs.readFileSync(fileName);
     const ext = fileName.slice(fileName.lastIndexOf('.') + 1);

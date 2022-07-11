@@ -1,9 +1,25 @@
-const fs = require("fs");
-const { commentHandler } = require("./commentHandler");
+const fs = require('fs');
 
 const toHTML = (object, tag) => {
   const values = Object.values(object).join(' ');
   return `<${tag}>${values}</${tag}>`;
+};
+
+const writeToFile = (content, fileName) => {
+  return () => {
+    fs.writeFile(fileName, JSON.stringify(content), 'utf-8', (err) => {
+      if (err) console.log(err);
+    });
+  };
+};
+
+const getComment = (request, response) => {
+  const comment = {};
+  request.bodyParams.forEach((value, name) => {
+    comment[name] = value;
+  });
+  comment.date = new Date().toLocaleString();
+  return comment;
 };
 
 const generateGuestBook = (request, response) => {
@@ -22,7 +38,10 @@ const guestBookHandler = (request, response, next) => {
   }
   if (request.url.pathname === '/comment') {
     request.comments = comments;
-    commentHandler(request, response);
+    const comment = getComment(request, response);
+    request.comments.unshift(comment);
+    response.statusCode = 200;
+    response.end('', writeToFile(request.comments, 'data/guestBook.json'));
     return;
   }
   next();

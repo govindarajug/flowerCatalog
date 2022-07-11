@@ -2,19 +2,20 @@
 
 <head>
   <title>Guest Book</title>
+  <script src="guestBook.js"></script>
 </head>
 
 <body>
   <h1><a href="./homePage.html">&lt&lt</a>Guest Book</h1>
   <h3>Leave a comment</h3>
-  <form action="/comment" method="POST">
+  <form action="/comment">
     <label for="name">Name:</label>
     <input type="text" name="name">
     <label for="comment">Comment:</label>
     <textarea name="comment" id="comment" cols="30" rows="5"></textarea>
-    <input type="submit">
+    <input type="button" value="comment" onclick="postComment()">
   </form>
-  __comments__
+  <div id="comments">__comments__</div>
 </body>
 
 </html>
