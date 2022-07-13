@@ -17,5 +17,9 @@
   "bugs": {
     "url": "https://github.com/govindarajug/flowerCatalog/issues"
   },
-  "homepage": "https://github.com/govindarajug/flowerCatalog#readme"
+  "homepage": "https://github.com/govindarajug/flowerCatalog#readme",
+  "devDependencies": {
+    "mocha": "^10.0.0",
+    "supertest": "^6.2.4"
+  }
 }

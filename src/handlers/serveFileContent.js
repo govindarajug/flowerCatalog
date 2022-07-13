@@ -1,5 +1,15 @@
 const fs = require('fs');
 
+const MIMETYPES = {
+  '.css': 'text/css',
+  '.html': 'text/html',
+  '.jpeg': 'image/jpeg',
+  '.jpg': 'image/jpeg',
+  '.json': 'application/json',
+  '.js': 'text/javascript',
+  '.gif': 'image/gif'
+};
+
 const serveFileContent = (serveFrom) => {
   return (request, response, next) => {
     const fileName = serveFrom + request.url.pathname;
@@ -15,8 +25,8 @@ const serveFileContent = (serveFrom) => {
       return;
     }
     const body = fs.readFileSync(fileName);
-    const ext = fileName.slice(fileName.lastIndexOf('.') + 1);
-    response.setHeader('content-type', `text/${ext}`);
+    const ext = fileName.slice(fileName.lastIndexOf('.'));
+    response.setHeader('content-type', MIMETYPES[ext] || 'text/plain');
     response.statusCode = 200;
     response.end(body);
     return;
