@@ -6,15 +6,16 @@ const { parseParams } = require('./handlers/parseParams.js');
 const { logReq } = require('./handlers/logReq.js');
 const { apiHandler } = require('./handlers/apiHandler.js');
 
-const handlers = [
-  parseParams,
-  logReq,
-  apiHandler,
-  guestBookHandler,
-  serveFileContent('./public'),
-  notFoundHandler
-];
+const createApp = (config) => {
+  const handlers = [
+    parseParams,
+    logReq,
+    apiHandler,
+    guestBookHandler(config.guestBookFile),
+    serveFileContent(config.path),
+    notFoundHandler
+  ];
+  return createRouter(handlers);
+};
 
-const app = () => createRouter(handlers);
-
-module.exports = { app };
+module.exports = { createApp };

@@ -1,12 +1,14 @@
 # TODO
 
-- [ ] add config in app
-  - [ ] to give path to serve file content
-  - [ ] to give path to write comments
-- [ ] write tests for posting comments
+- [ ] add login to the guestBook
+- [ ] write tests for login
 
 # DONE
 
+- [x] write tests for posting comments
+- [x] add config in app
+  - [x] to give path to serve file content
+  - [x] to give path to write comments
 - [x] write tests using super test
 - [x] Add css to the pages
 - [x] initiated npm 

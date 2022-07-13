@@ -28,23 +28,25 @@ const generateGuestBook = (request, response) => {
   response.end(template.replace('__comments__', parsedComments));
 };
 
-const guestBookHandler = (request, response, next) => {
-  const comments = JSON.parse(fs.readFileSync('data/guestBook.json'));
+const guestBookHandler = (guestBookFile) => {
+  return (request, response, next) => {
+    const comments = JSON.parse(fs.readFileSync(guestBookFile));
 
-  if (request.url.pathname === '/guestBook') {
-    request.comments = comments;
-    generateGuestBook(request, response);
-    return;
-  }
-  if (request.url.pathname === '/comment') {
-    request.comments = comments;
-    const comment = getComment(request, response);
-    request.comments.unshift(comment);
-    response.statusCode = 200;
-    response.end('', writeToFile(request.comments, 'data/guestBook.json'));
-    return;
-  }
-  next();
+    if (request.url.pathname === '/guestBook') {
+      request.comments = comments;
+      generateGuestBook(request, response);
+      return;
+    }
+    if (request.url.pathname === '/comment') {
+      request.comments = comments;
+      const comment = getComment(request, response);
+      request.comments.unshift(comment);
+      response.statusCode = 201;
+      response.end('', writeToFile(request.comments, guestBookFile));
+      return;
+    }
+    next();
+  };
 };
 
 module.exports = { guestBookHandler };

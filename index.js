@@ -1,8 +1,9 @@
-const http = require('http');
-const { app } = require("./src/app.js");
+const { createApp } = require("./src/app.js");
+const { startServer } = require("./src/server/server");
 
-const httpServer = http.createServer(app());
+const config = {
+  path: './public',
+  guestBookFile: 'data/guestBook.json'
+};
 
-httpServer.listen(9090, () => {
-  console.log('Started listening on 9090');
-});
+startServer(9090, createApp(config));
