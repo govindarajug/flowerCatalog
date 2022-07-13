@@ -2,24 +2,31 @@
 
 <head>
   <title>Flower Catalog</title>
+  <link rel="stylesheet" href="styles/homepage.css">
+  <script>
+    const hideFor = (element) => {
+      element.style.visibility = 'hidden';
+      setTimeout(() => {
+        element.style.visibility = 'visible';
+      }, 1000);
+    };
+  </script>
 </head>
-<script>
-  const hideFor = (element) => {
-    element.style.visibility = 'hidden';
-    setTimeout(() => {
-      element.style.visibility = 'visible';
-    }, 1000);
-  };
-</script>
 
 <body>
   <h1>Flower Catalog</h1>
-  <img src="./images/freshorigins.jpg" alt="flowers">
-  <li><a href="./abeliophyllum.html">Abeliophyllum</a></li>
-  <li><a href="./ageratum.html">Ageratum</a></li>
-  <img src="./images/flower-jar.gif" alt="flower-jar" id="flower-jar" style="visibility: visible;"
-    onclick="hideFor(event.target)">
-  <li><a href="./guestBook">Guest Book</a></li>
+  <div class="page-wrapper">
+    <img src="./images/freshorigins.jpg" alt="flowers">
+    <nav>
+      <ul>
+        <li><a href="./abeliophyllum.html">Abeliophyllum</a></li>
+        <li><a href="./ageratum.html">Ageratum</a></li>
+        <img src="./images/flower-jar.gif" alt="flower-jar" id="flower-jar" style="visibility: visible;"
+          onclick="hideFor(event.target)">
+        <li><a href="./guestBook">Guest Book</a></li>
+      </ul>
+    </nav>
+  </div>
 </body>
 
 </html>

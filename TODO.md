@@ -1,9 +1,11 @@
 # TODO
 
-- [ ] Add css to the pages
+- [ ] write tests using super test
 
 # DONE
 
+- [x] Add css to the pages
+- [x] initiated npm 
 - [x] load guest book without redirection
 - [x] implemented post method for comments
 - [x] logging req path for every request
