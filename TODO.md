@@ -1,10 +1,10 @@
 # TODO
 
-- [ ] add login to the guestBook
 - [ ] write tests for login
 
 # DONE
 
+- [x] add login to the guestBook
 - [x] write tests for posting comments
 - [x] add config in app
   - [x] to give path to serve file content

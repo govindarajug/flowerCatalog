@@ -25,7 +25,7 @@ const updateView = (xhr, event) => {
 };
 
 const showComments = (xhr, event) => {
-  if (xhr.status === 200) {
+  if (xhr.status === 201) {
     const xhReq = {
       method: 'GET',
       path: '/api/comments'

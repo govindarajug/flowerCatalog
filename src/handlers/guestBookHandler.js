@@ -33,6 +33,12 @@ const guestBookHandler = (guestBookFile) => {
     const comments = JSON.parse(fs.readFileSync(guestBookFile));
 
     if (request.url.pathname === '/guestBook') {
+      // if (!req.session) {
+      //   response.setHeader('location', '/login');
+      //   response.statusCode = 302;
+      //   response.end();
+      //   return;
+      // }
       request.comments = comments;
       generateGuestBook(request, response);
       return;

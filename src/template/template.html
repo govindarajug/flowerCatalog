@@ -3,19 +3,26 @@
 <head>
   <title>Guest Book</title>
   <script src="guestBook.js"></script>
+  <link rel="stylesheet" href="styles/guestBook.css">
 </head>
 
 <body>
-  <h1><a href="./homePage.html">&lt&lt</a>Guest Book</h1>
-  <h3>Leave a comment</h3>
-  <form action="/comment">
-    <label for="name">Name:</label>
-    <input type="text" name="name">
-    <label for="comment">Comment:</label>
-    <textarea name="comment" id="comment" cols="30" rows="5"></textarea>
-    <input type="button" value="comment" onclick="postComment()">
-  </form>
-  <div id="comments">__comments__</div>
+  <header>
+    <a href="./homePage.html">&lt&lt</a>
+    <h1>Book</h1>
+    <a href="/logout" id="logout">Log Out</a>
+  </header>
+  <div class="page-wrapper">
+    <h3>Leave a comment</h3>
+    <form>
+      <label for="name">Name:</label>
+      <input type="text" name="name">
+      <label for="comment">Comment:</label>
+      <textarea name="comment" id="comment" cols="30" rows="5"></textarea>
+      <input type="button" value="comment" onclick="postComment()">
+    </form>
+    <div id="comments">__comments__</div>
+  </div>
 </body>
 
 </html>
