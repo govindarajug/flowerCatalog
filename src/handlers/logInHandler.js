@@ -6,38 +6,37 @@ const updateSessions = (sessions, id, username) => {
   };
 };
 
+const redirectTo = (res, path) => {
+  res.setHeader('Location', path);
+  res.statusCode = 302;
+  res.end();
+  return;
+};
+
 const logInHandler = (sessions, users) => {
   let id = 1;
   return (req, res, next) => {
-    if (req.url.pathname === '/login') {
+    if (req.url.pathname === '/login' && req.method === 'POST') {
       if (req.cookies) {
-        res.setHeader('Location', '/guestBook');
-        res.statusCode = 302;
-        res.end();
+        redirectTo(res, '/guestBook');
         return;
       };
 
-      const username = req.url.searchParams.get('username');
+      const username = req.bodyParams.get('username');
       if (username) {
         if (!users.includes(username)) {
-          res.setHeader('Location', '/signup.html');
-          res.statusCode = 302;
-          res.end();
+          redirectTo(res, '/signup.html');
           return;
-        }
+        };
 
         users.push(username);
         updateSessions(sessions, id, username);
         res.setHeader('set-cookie', `id=${id}`);
         id++;
-        res.setHeader('Location', '/guestBook');
-        res.statusCode = 302;
-        res.end();
+        redirectTo(res, '/guestBook');
         return;
       }
-      res.setHeader('Location', '/login.html');
-      res.statusCode = 302;
-      res.end();
+      redirectTo(res, '/login.html');
       return;
     };
     next();

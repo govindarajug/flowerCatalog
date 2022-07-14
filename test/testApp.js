@@ -13,17 +13,36 @@ describe('test App', () => {
       .expect(302, done);
   });
 
-  it('Should serve guest book when path is GET /guestBook', (done) => {
+  it('Should serve homepage when path is GET /homepage.html', (done) => {
+    request(createApp(config))
+      .get('/homepage.html')
+      .expect(200, done);
+  });
+
+  it('Should redirect to login when path is GET /guestBook', (done) => {
     request(createApp(config))
       .get('/guestBook')
-      .expect(/comment/)
+      .expect('location', '/login.html')
+      .expect(302, done);
+  });
+
+  config.sessions = {
+    1: {
+      id: 1,
+      name: 'abcd'
+    }
+  };
+  it('Should serve guestBook when user is loggedIn GET /guestBook', (done) => {
+    request(createApp(config))
+      .get('/guestBook')
+      .set('Cookie', 'id=1')
       .expect(200, done);
   });
 
   it('Should post comment when path is POST /comment', (done) => {
     request(createApp(config))
       .post('/comment')
-      .send('name=abcd,comment=hello')
+      .send('name=abcd&comment=hello')
       .expect('')
       .expect(201, done);
   });
@@ -34,5 +53,59 @@ describe('test App', () => {
       .expect('content-type', 'text/plain')
       .expect('/getnothing not found')
       .expect(404, done);
+  });
+});
+
+describe('signup requests', () => {
+  const config = {
+    users: [],
+    sessions: {},
+    path: './public',
+    guestBookFile: 'test/data/guestBook.json'
+  };
+  it('Should redirect to login after signingup', (done) => {
+    request(createApp(config))
+      .post('/signup')
+      .send('username=abcd')
+      .expect('location', '/login.html')
+      .expect(302, done);
+  });
+
+  it('Should redirect to signup when username is not given', (done) => {
+    request(createApp(config))
+      .post('/signup')
+      .send('username=')
+      .expect('location', '/signup.html')
+      .expect(401, done);
+  });
+});
+
+describe('login requests', () => {
+  let config = {
+    users: [],
+    sessions: {},
+    path: './public',
+    guestBookFile: 'test/data/guestBook.json'
+  };
+  it('Should redirect to signup if not signedup', (done) => {
+    request(createApp(config))
+      .post('/login')
+      .send('username=abcd')
+      .expect('location', '/signup.html')
+      .expect(302, done);
+  });
+
+  config = {
+    users: ['king'],
+    sessions: {},
+    path: './public',
+    guestBookFile: 'test/data/guestBook.json'
+  };
+  it('Should redirect to guestBook when user is already sigedup', (done) => {
+    request(createApp(config))
+      .post('/login')
+      .send('username=king')
+      .expect('location', '/guestBook')
+      .expect(302, done);
   });
 });

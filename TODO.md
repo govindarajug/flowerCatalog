@@ -1,9 +1,10 @@
 # TODO
 
-- [ ] write tests for login
+- [ ] move to express module
 
 # DONE
 
+- [x] write tests for login
 - [x] add login to the guestBook
 - [x] write tests for posting comments
 - [x] add config in app
