@@ -46,6 +46,13 @@ describe('test App', () => {
       .expect(201, done);
   });
 
+  it('Should serve json comments when path is GET /api/comments', (done) => {
+    request(createApp(config))
+      .get('/api/comments')
+      .expect('content-type', /json/)
+      .expect(200, done);
+  });
+
   it('Should give status 404 when path not found', (done) => {
     request(createApp(config))
       .get('/getnothing')
