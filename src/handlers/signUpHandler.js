@@ -1,7 +1,7 @@
 const signUpHandler = (users) => {
   return (req, res, next) => {
-    if (req.url.pathname === '/signup') {
-      const username = req.bodyParams.get('username');
+    if (req.url === '/signup') {
+      const username = req.body.username;
       if (!username) {
         res.setHeader('location', '/signup.html');
         res.statusCode = 401;

@@ -16,13 +16,13 @@ const redirectTo = (res, path) => {
 const logInHandler = (sessions, users) => {
   let id = 1;
   return (req, res, next) => {
-    if (req.url.pathname === '/login' && req.method === 'POST') {
-      if (req.cookies) {
+    if (req.url === '/login' && req.method === 'POST') {
+      if (req.cookie) {
         redirectTo(res, '/guestBook');
         return;
       };
 
-      const username = req.bodyParams.get('username');
+      const username = req.body.username;
       if (username) {
         if (!users.includes(username)) {
           redirectTo(res, '/signup.html');

@@ -9,13 +9,12 @@ describe('test App', () => {
   it('Should redirect to homepage when path is GET /', (done) => {
     request(createApp(config))
       .get('/')
-      .expect('location', '/homepage.html')
-      .expect(302, done);
+      .expect(200, done);
   });
 
-  it('Should serve homepage when path is GET /homepage.html', (done) => {
+  it('Should serve homepage when path is GET /index.html', (done) => {
     request(createApp(config))
-      .get('/homepage.html')
+      .get('/index.html')
       .expect(200, done);
   });
 
@@ -50,8 +49,7 @@ describe('test App', () => {
   it('Should give status 404 when path not found', (done) => {
     request(createApp(config))
       .get('/getnothing')
-      .expect('content-type', 'text/plain')
-      .expect('/getnothing not found')
+      .expect('content-type', 'text/html; charset=utf-8')
       .expect(404, done);
   });
 });
@@ -101,7 +99,7 @@ describe('login requests', () => {
     path: './public',
     guestBookFile: 'test/data/guestBook.json'
   };
-  it('Should redirect to guestBook when user is already sigedup', (done) => {
+  it('Should redirect to guestBook when user is already signedup', (done) => {
     request(createApp(config))
       .post('/login')
       .send('username=king')

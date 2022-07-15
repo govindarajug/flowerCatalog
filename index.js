@@ -1,11 +1,13 @@
 const { createApp } = require("./src/app.js");
-const { startServer } = require("./src/server/server");
 
-const config = {
-  users: [],
-  sessions: {},
-  path: './public',
-  guestBookFile: 'data/guestBook.json'
+const startServer = (port) => {
+  const config = {
+    users: [],
+    sessions: {},
+    guestBookFile: 'data/guestBook.json'
+  };
+  const app = createApp(config);
+  app.listen(port, () => console.log(`Server listening on ${port}`));
 };
 
-startServer(9090, createApp(config));
+startServer(9090);

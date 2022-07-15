@@ -1,3 +1,4 @@
 resources
 .DS_Store
 data/guestBook.json
+node_modules

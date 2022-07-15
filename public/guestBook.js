@@ -11,6 +11,7 @@ const makeXhr = (xhrHandler, { method, path, bodyParams }) => {
   xhr.onload = (event) => xhrHandler(xhr, event);
   xhr.open(method, path);
   if (method === 'POST') {
+    xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
     xhr.send(bodyParams);
     return;
   }
