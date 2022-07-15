@@ -14,7 +14,9 @@ const writeToFile = (content, fileName) => {
 };
 
 const getComment = (request, response) => {
-  const comment = request.body;
+  const comment = {};
+  comment.name = request.session.username;
+  comment.comment = request.body.comment;
   comment.date = new Date().toLocaleString();
   return comment;
 };
@@ -22,7 +24,9 @@ const getComment = (request, response) => {
 const generateGuestBook = (request, response) => {
   const parsedComments = request.comments.map(x => toHTML(x, 'div')).join('\n');
   const template = fs.readFileSync('src/template/template.html', 'utf-8');
-  response.end(template.replace('__comments__', parsedComments));
+  let content = template.replace('__comments__', parsedComments);
+  content = content.replace('__name__', request.session.username);
+  response.end(content);
 };
 
 const guestBookHandler = (guestBookFile) => {

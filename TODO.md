@@ -1,9 +1,10 @@
 # TODO
 
-- [ ] use name from sessions in comments
+- [ ] make separate handler to post comments
 
 # DONE
 
+- [x] use name from sessions in comments
 - [x] move to express module
 - [x] write tests for login
 - [x] add login to the guestBook

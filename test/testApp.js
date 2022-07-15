@@ -28,7 +28,7 @@ describe('test App', () => {
   config.sessions = {
     1: {
       id: 1,
-      name: 'abcd'
+      username: 'abcd'
     }
   };
   it('Should serve guestBook when user is loggedIn GET /guestBook', (done) => {
@@ -41,7 +41,8 @@ describe('test App', () => {
   it('Should post comment when path is POST /comment', (done) => {
     request(createApp(config))
       .post('/comment')
-      .send('name=abcd&comment=hello')
+      .set('Cookie', 'id=1')
+      .send('comment=hello')
       .expect('')
       .expect(201, done);
   });
